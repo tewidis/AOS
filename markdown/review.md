@@ -1,6 +1,6 @@
 # Review
 
-File Systems
+## File Systems
 
     * Key abstractions
         1. File
@@ -74,7 +74,7 @@ File Systems
 | Journaling     |                      | X                    | X                 |
 | DMA            |                      | X                    |                   |
 
-Memory Systems
+## Memory Systems
 
     * Naive Memory Model
         - Memory
@@ -193,7 +193,7 @@ Memory Systems
         the page offset to access the data cache simultaneously
             + Provides a speedup
 
-Multithreaded Programming
+## Multithreaded Programming
 
     * Process-Thread Relationship
         - Each process has a stack, heap, globals, constants, and code
@@ -223,7 +223,7 @@ Multithreaded Programming
         - Releases the mutex while waiting for a signal
         - Must spin on the condition, not if, to truly ensure the condition is met
 
-Networking
+## Networking
 
     * Interconnection Layers
         - Application: Application-specific protocols (HTTP, SMTP, etc.)
@@ -290,7 +290,7 @@ Networking
         - TCP sends acks and tracks how much data has been sent and received
             + Will only send so many packets without receiving an ack
         - User Datagram Protocol
-            + Ignores the reliability and out-of-order protectionof TCP
+            + Ignores the reliability and out-of-order protection of TCP
             + VoIP: User prefers degradation in quality over delay
             + Streaming: Don't mind occasional packet loss
 
