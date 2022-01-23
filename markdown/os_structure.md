@@ -2,17 +2,17 @@
 
 ## OS Structure Overview
 
-    * Operating system services
+    * Operating System Services
         1. Process/thread management and scheduling
         2. Memory management (protection, sharing, demand paging)
         3. Interprocess communication (IPC)
         4. File system
         5. Access to I/O devices such as microphones and speakers
         6. Access to the network
-    * OS Structre: The way the operating system software is organized with 
+    * OS Structure: The way the operating system software is organized with 
     respect to the applications that it serves and the underlying hardware that
     it manages
-    * Goals of OS structure
+    * Goals of OS Structure
         1. Protection: Within and across users and to the OS itself
         2. Performance: Time taken to perform the services
         3. Flexibility: Extensibility (not one size fits all)
@@ -89,7 +89,7 @@
 
 ## The SPIN Approach
 
-    * Two premises:
+    * Two Premises:
         1. Microkernel design compromises on performance due to frequent border
         crossings
         2. Monolithic design does not lend itself to extensibility
@@ -108,13 +108,13 @@
             + Microkernel-based
             + Focused on extensibility and portability
             + Performance wasn't prioritized
-    * SPIN's approach to extensibility
+    * SPIN's Approach to Extensibility
         - Co-location of kernel and extensions to avoid border crossings
         - Compiler enforced modularity (strongly typed language, Modula)
         - Logical protection domains (not hardware address spaces)
         - Dynamic call binding -> flexibility
         - Make extensions as cheap as a procedure call
-    * Logical protection domains
+    * Logical Protection Domains
         - Modula-3 safety and encapsulation mechanisms
             + Type safety, automatic storage management
             + Objects, threads, exceptions, generic interfaces
@@ -124,7 +124,7 @@
             + Collection of interfaces (entire virtual memory subsystem)
         - Capabilities implemented as language supported pointers
             + Modula-3 pointers are type-specific (no casting)
-    * SPIN mechanisms for protection domains
+    * SPIN Mechanisms for Protection Domains
         - Create: initialize with object file contents and export names that are
         contained as entry point methods into the object to be externally visible
         - Resolve: Names between source and target domains
@@ -137,7 +137,7 @@
 |:--:|
 | SPIN OS Structure |
 
-    * SPIN mechanisms for events
+    * SPIN Mechanisms for Events
         - OS needs to be able to field events (interrupts, system calls)
         - Event-based communication model
             + Services register event handlers (one-to-one, one-to-many, 
@@ -147,7 +147,7 @@
 |:--:|
 | SPIN Event Handlers |
 
-    * Default core services in SPIN
+    * Default Core Services in SPIN
         - SPIN provides interface procedures for implementing these services
         - Automatically invoked when the hardware event occurs
         - Memory management
@@ -181,7 +181,7 @@
 |:--:|
 | Exokernel OS Structure |
 
-    * Examples of candidate resources
+    * Examples of Candidate Resources
         - TLB Entry
             + Virtual to physical mapping done by library
             + Binding presented to exokernel
@@ -191,7 +191,7 @@
         - Packet filter
             + Predicates loaded into kernel by library OS
             + Check on packet arrival by Exokernel
-    * Implementing secure bindings
+    * Implementing Secure Bindings
         1. Hardware mechanisms (TLB entry, physical page frame, frame buffer)
         2. Software caching
             + "Shadow" TLB in software for each library OS
@@ -202,12 +202,12 @@
             + Compromises protection more than SPIN; as long as SPIN's logical 
             protection domains are following Modula-3's compile and runtime 
             verification, no compromise. Exokernel doesn't make this guarantee
-    * Memory management in Exokernel
+    * Memory Management in Exokernel
         - When a thread incurs a page fault, it's caught by Exokernel
         - Then, it's passed to the library OS through the registered handler
         - Library services fault (might require requesting a page frame from
         Exokernel)
-    * Memory management using software TLB
+    * Memory Management Using Software TLB
         - On context switch, much of performance hit comes from loss of 
         cache locality
         - To mitigate this overhead, Exokernel implements a software TLB
@@ -219,7 +219,7 @@
 |:--:|
 | Exokernel Memory Management |
 
-    * CPU scheduling in Exokernel
+    * CPU Scheduling in Exokernel
         - Linear vector of "time slots"
         - Each library OS will get one time quantum at a time
         - When timing interrupt occurs, Exokernel will switch to next library OS
@@ -230,11 +230,11 @@
 |:--:|
 | Exokernel CPU Scheduling |
 
-    * Secure binding - How can a library OS securely insert code into the kernel?
+    * Secure Binding - How can a library OS securely insert code into the kernel?
         - Performance optimization to avoid border crossings
         - In both SPIN and Exokernel, the ability to add extensions must be
         restricted to a trusted set of users
-    * Revocation of resources
+    * Revocation of Resources
         - Exokernel needs a way of revoking resources (space/time) that have
         been allocated to a library OS
         - Revoke call is an upcall into library OS (repossession vector)
@@ -245,7 +245,7 @@
         1. Packet filter for de-multiplexing of network packets
         2. Run code in Exokernel on behalf of library OS not currently scheduled
         (e.g., garbage collection for an application)
-    * Summary; Achieiving extensibility, protection, and performance
+    * Summary; Achieving extensibility, protection, and performance
         1. Performance: Exokernel allows for performance critical code in 
         library OS to be downloaded securely into Exokernel
         2. Extensibility: Exokernel exposes hardware resources to library OS to
@@ -258,14 +258,14 @@
 |:--:|
 | Exokernel Summary |
 
-    * Exokernel data structures
+    * Exokernel Data Structures
         - PE data structure: Handler entry points for different event types
             + Exceptions, interrupts, system calls, memory mappings
         - Software TLB to preserve page mappings
             + Must specify a set of guaranteed mappings for Exokernel to maintain
             + Not all hardware TLB entries, just the specified ones
         - Similar to event handler structure in SPIN OS
-    * Performance results of SPIN and Exokernel
+    * Performance Results of SPIN and Exokernel
         - Can qualitatively argue that extensibility is provided, but must prove
         quantitatively that performance isn't being sacrificed
         - UNIX: Monolithic
@@ -284,7 +284,7 @@
         - Applications sit on top of OS services
         - OS services: Memory management, file system, storage module
         - Microkernel provides simple abstractions (address space, IPC)
-    * Potentials for performance loss
+    * Potentials for Performance Loss
         - Border crossings: Implicit and explicit costs
             + Applications and microkernel in different privelege levels
             + System services have to consult other services (cross address space)
@@ -300,7 +300,7 @@
 |:--:|
 | L3 OS Structure |
 
-    * Strikes against microkernel
+    * Strikes Against Microkernel
         - Kernel-user switches (border crossing cost)
         - Address space switches
             + Basis for protected procedure calls for cross protection domain 
@@ -310,14 +310,14 @@
             + Kernel mediation for protected procedure calls (PPC)
         - Memory effects
             + Locality loss
-    * L3 Solution to user border crossing
+    * L3 Solution to User Border Crossing
         - L3 accomplishes border crossing in 123 processor cycles
             + Includes TLB and cache misses
         - L3 calculated that the absolute minimum number of cycles on their 
         architecture was 107; 123 is pretty good
         - Border crossing isn't inherently slower in their microkernel design
         - For reference, CMU's Mach took 900 cycles on the same architecture
-    * L3 Solution to address space switches
+    * L3 Solution to Address Space Switches
         - Address space tagged TLBs: in addition to the tag and index, the TLB
         contains the process for which a particular TLB is present (MIPS)
         - This means the TLB doesn't have to be flushed on context switch
@@ -344,10 +344,10 @@
 |:--:|
 | Address Space Tagged TLB |
 
-    * Thread switches and IPC
+    * Thread Switches and IPC
         - Shown to be competitive to SPIN and Exokernel by construction
         - Switch involes saving all volatile state of processor
-    * Memory effects
+    * Memory Effects
         - Assmuption os that loss of locality in a microkernel-based design >> 
         monolithic design
         - Liedtke says that splitting the hardware address space into small 
@@ -357,7 +357,7 @@
             in a smaller footprint in the caches as well
             + Unavoidable if protection domains are large, regardless of how the
             operating system is designed
-    * Mach's expensive border crossing
+    * Mach's Expensive Border Crossing
         - Focus on portability (can run on different processor architectures)
             + Code bloat -> large memory footprint -> Less locality -> more 
             cache misses -> longer latency for border crossing

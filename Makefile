@@ -1,7 +1,7 @@
 MD=markdown
 PDF=pdf
 
-all: review intro_to_aos os_structure
+all: review intro_to_aos os_structure virtualization
 
 clean:
 	rm -f *~
@@ -16,3 +16,6 @@ intro_to_aos: $(MD)/intro_to_aos.md
 
 os_structure: $(MD)/os_structure.md
 	pandoc -V geometry:margin=1in -o $(PDF)/os_structure.pdf $(MD)/os_structure.md
+
+virtualization: $(MD)/virtualization.md
+	pandoc -V geometry:margin=1in -o $(PDF)/virtualization.pdf $(MD)/virtualization.md
