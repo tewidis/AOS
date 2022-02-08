@@ -1,7 +1,7 @@
 MD=markdown
 PDF=pdf
 
-all: review intro_to_aos os_structure virtualization
+all: review intro_to_aos os_structure virtualization shared_memory
 
 clean:
 	rm -f *~
@@ -19,3 +19,6 @@ os_structure: $(MD)/os_structure.md
 
 virtualization: $(MD)/virtualization.md
 	pandoc -V geometry:margin=1in -o $(PDF)/virtualization.pdf $(MD)/virtualization.md
+
+shared_memory: $(MD)/shared_memory.md
+	pandoc -V geometry:margin=1in -o $(PDF)/shared_memory.pdf $(MD)/shared_memory.md

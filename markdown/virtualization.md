@@ -284,7 +284,7 @@
             + Guest OS puts requests in the ring, hypervisor puts responses back
             + Guest OS has request producer pointer that Xen can read from
             + Hypervisor has request consumer pointer that is private to Xen
-            + Hypervsior has response producer pointer that guest can read from
+            + Hypervisor has response producer pointer that guest can read from
             + Guest OS has response consumer pointer that is private to guest
             + Requests/responses have a unique ID to identify them
             + All of this is done with pointer passing; fast
@@ -300,7 +300,7 @@
             + Xen can swap machine page for a page the guest already owns 
             instead of using a preallocated buffer
     * Disk I/O Virtualization
-        - Every VM has a ring for disk I/O
+        - Every VM has a ring for disk I/O (private to each guest)
         - No copying into Xen
         - Request from competing domains may be reordered to make the I/O
         throughput more efficient
