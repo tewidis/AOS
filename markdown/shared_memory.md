@@ -111,14 +111,17 @@
         - while( (L == locked) || (test_and_set(L) == locked) )
             + while( L == locked );
             + delay( d[process_id] );
+         - Only works with hardware cache coherence
         - Delay with exponential backoff
         - while( test_and_set(L) == locked )
             + delay(d);
             + d = d * 2;
         - Static delay: Delay based on a predetermined amount of time for each
+        - Works even without hardware cache coherence
         process
         - Dynamic delay: Delay increases with successive failures to acquire
         - Dynamic delay means that when contention is low, delay will be short
+        
     * Ticket Lock
         - Fairness: Determining which process gets the lock when it becomes
         available; should be the one waiting the longest
@@ -130,6 +133,8 @@
             + goto( pause );
         - release_lock(L):
             + L->now_serving++;
+        - On release, if cache coherence is invalidate, there's still contention
+        - If cache coherence is update, there's no contention
     * Spinlock Summary
         1. read and test_and_set (no fairness)
         2. test_and_set with delay (no fairness)
@@ -155,6 +160,8 @@
             + Size of queue is as big as number of processors (N)
             + Still allocates this data structure Even if not all processors 
             will contend for lock (statically sized)
+            + Still possible that more than one core is awoken; these memory
+            locations may share the same cache line (false sharing)
 
 | ![array](images/shm_array_queueing_lock.png) |
 |:--:|
@@ -170,6 +177,7 @@
             + await precessor to signal; // spin
         - fetch_and_store(L,me): returns what was contained in L and stores me
         in L; use this to implement the join functionality
+            + For simultaneous access, either thread can win
         - unlock(L,me):
             + remove me from L;
             + signal successor;
