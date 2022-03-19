@@ -68,7 +68,7 @@
         - No distinction between OS services and applications in terms of how 
         they run
         - Pro: Extensibility; services can be easily replaced
-        - Con: Performance. In a monolithic structure, filesystem and memory
+        - Con: Performance; in a monolithic structure, filesystem and memory
         management are all within the kernel. In a microkernel structure, an 
         app might go through the kernel, to the filesystem service, back to the
         microkernel, and back to the app. All of this is IPC overhead.
@@ -95,7 +95,7 @@
         2. Monolithic design does not lend itself to extensibility
     * Goals
         1. Thin (like microkernel) -> only mechanisms, not policies
-        2. Access to resources without broder crossing (like DOS)
+        2. Access to resources without border crossing (like DOS)
         3. Flexibility for resource management (like microkernel) without 
         sacrificing protection and performance (like monolithic)
     * Approaches to Extensibility
@@ -336,7 +336,7 @@
             + TLB flush takes 864 cycles in Pentium processor
         - Small protection domains
             + Switches can be made efficient by careful construction
-        - Large proteciton domains
+        - Large protection domains
             + Switching cost not important
             + Cache effects and TLB effects dominate
 

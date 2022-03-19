@@ -111,17 +111,15 @@
         - while( (L == locked) || (test_and_set(L) == locked) )
             + while( L == locked );
             + delay( d[process_id] );
-         - Only works with hardware cache coherence
+        - Only works with hardware cache coherence
         - Delay with exponential backoff
         - while( test_and_set(L) == locked )
             + delay(d);
             + d = d * 2;
         - Static delay: Delay based on a predetermined amount of time for each
         - Works even without hardware cache coherence
-        process
         - Dynamic delay: Delay increases with successive failures to acquire
         - Dynamic delay means that when contention is low, delay will be short
-        
     * Ticket Lock
         - Fairness: Determining which process gets the lock when it becomes
         available; should be the one waiting the longest
@@ -168,7 +166,7 @@
 | Array-based Queueing Lock |
 
     * Linked List-based Queueing Lock
-        - Mello-Crummy and Scott (MCS) queueing lock
+        - Mellor-Crummy and Scott (MCS) queueing lock
         - One linked list for each lock (guarantees fairness)
         - struct q_node { bool got_it; q_node* next; };
         - lock(L,me):
@@ -204,7 +202,7 @@
 | Linked List Queueing Lock |
 
     * Algorithm Grading
-        - If processor provides a fetch_and_free operation, queueing locks are
+        - If processor provides a fetch_and_phi operation, queueing locks are
         a good choice. If the processor only provides test_and_set, expontential
         backoff is a better choice.
 
@@ -284,7 +282,7 @@
     * Binary Wakeup
         - One data structure
             + CP: Child pointer
-        - Minimizes the path to furtherest child
+        - Minimizes the path to furthest child
         - Each parent is spinning on a statically determined location
         - Uses CP (child pointer) to signal child
         - Because everything is statically assigned, this solves the issue of
@@ -307,14 +305,14 @@
         - Tree barrier vs Tournament barrier
             + Spin locations are statically determined in tournament barrier
             + Tournament barrier can be implemented with only atomic read/write;
-            tree barrier requires fetch_and_free
+            tree barrier requires fetch_and_phi
             + Total amount of communication is the same: O(logN)
             + Tournament barrier works even in the absence of physical shared 
             memory (simply message passing)
         - MCS barrier vs Tournament barrier
             + Tournament can't exploit spatial locality; MCS takes advantage of
             children occupying the same cache line
-            + Neither need fetch_and_free operation
+            + Neither need fetch_and_phi operation
             + Tournament barrier works even in the absence of physical shared 
             memory (simply message passing)
 
