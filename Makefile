@@ -1,7 +1,7 @@
 MD=markdown
 PDF=pdf
 
-all: review intro_to_aos os_structure virtualization shared_memory distributed_systems distributed_objects
+all: review intro_to_aos os_structure virtualization shared_memory distributed_systems distributed_objects distributed_subsystems
 
 clean:
 	rm -f *~
@@ -28,3 +28,6 @@ distributed_systems: $(MD)/distributed_systems.md
 
 distributed_objects: $(MD)/distributed_objects.md
 	pandoc -V geometry:margin=1in -o $(PDF)/distributed_objects.pdf $(MD)/distributed_objects.md
+
+distributed_subsystems: $(MD)/distributed_subsystems.md
+	pandoc -V geometry:margin=1in -o $(PDF)/distributed_subsystems.pdf $(MD)/distributed_subsystems.md
