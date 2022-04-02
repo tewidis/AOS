@@ -512,7 +512,7 @@
             + Combines LFS and RAID
             + Stripes log segment on multiple nodes' disks in software
             + LFS solves small write problem and RAID provides parallelism
-        - Use commodity hardware on nodes connected LAN
+        - Use commodity hardware on nodes connected over LAN
             + Similar to hardware RAID, but software handles the striping
     * Putting Them All Together Plus More
         - XFS, a distributed file system (UC-Berkeley)
@@ -597,6 +597,13 @@
             + Use stripe group map to get the log segment (since it's striped)
             + Use the log segment and stripe group map to access the blocks from
             storage servers
+        - File directory: Client node where created
+        - Mmap: Statically assigned at creation, replicated globally
+        - Imap: Partitioned among managers
+        - i-node: One per file
+        - Stripe group: Assigned at file/log creation time, replicated globally
+        - Log segment: Set of logs for a file
+        - Data blocks: Actual data pertaining to a file
 
 | ![xfsdata](images/dss_xfs_data_structures.png) |
 |:--:|
