@@ -3,7 +3,7 @@ PDF=pdf
 
 all: review intro_to_aos os_structure virtualization shared_memory distributed_systems \
 	distributed_objects distributed_subsystems internet_computing multimedia \
-	failures_and_recovery
+	failures_and_recovery information_security
 
 clean:
 	rm -f *~
@@ -42,3 +42,6 @@ multimedia: $(MD)/multimedia.md
 
 failures_and_recovery: $(MD)/failures_and_recovery.md
 	pandoc -V geometry:margin=1in -o $(PDF)/failures_and_recovery.pdf $(MD)/failures_and_recovery.md
+
+information_security: $(MD)/information_security.md
+	pandoc -V geometry:margin=1in -o $(PDF)/information_security.pdf $(MD)/information_security.md
