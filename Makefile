@@ -2,7 +2,8 @@ MD=markdown
 PDF=pdf
 
 all: review intro_to_aos os_structure virtualization shared_memory distributed_systems \
-	distributed_objects distributed_subsystems internet_computing multimedia
+	distributed_objects distributed_subsystems internet_computing multimedia \
+	failures_and_recovery
 
 clean:
 	rm -f *~
@@ -38,3 +39,6 @@ internet_computing: $(MD)/internet_computing.md
 
 multimedia: $(MD)/multimedia.md
 	pandoc -V geometry:margin=1in -o $(PDF)/multimedia.pdf $(MD)/multimedia.md
+
+failures_and_recovery: $(MD)/failures_and_recovery.md
+	pandoc -V geometry:margin=1in -o $(PDF)/failures_and_recovery.pdf $(MD)/failures_and_recovery.md

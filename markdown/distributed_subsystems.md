@@ -16,7 +16,7 @@
             + Remote memory access faster than disk
         - Memory manager
             + VA -> PA OR disk
-        - GSM
+        - GMS
             + VA -> PA OR cluster memory OR disk
             + Integrates cluster memory into local memory
         - Paging through the LAN might be faster than going to disk due to
@@ -26,7 +26,7 @@
             crashes, no data is lost
             + When a page gets evicted from local memory, GMS goes to peer
             memory instead of disk
-    * GSM Basics
+    * GMS Basics
         - "Cache" refers to physical memory (i.e., DRAM) not processor cache
         - Sense of "community" to handle page faults at a node
         - Physical memory of a node
@@ -36,8 +36,8 @@
         - Two states for pages
             + Private to local node
             + Shared across nodes (if a computation is distributed)
-        - Coherence for shared pages is an application issue, not GSM's problem
-        - GSM uses an LRU replacement algorithm, but across the entire cluster
+        - Coherence for shared pages is an application issue, not GMS's problem
+        - GMS uses an LRU replacement algorithm, but across the entire cluster
             + "Globally oldest page"
     * Handling Page Faults - Case 1
         - Common case
